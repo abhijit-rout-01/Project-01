@@ -1,0 +1,195 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: 120% 120%; /* Adjust to control vertical cropping */
+    background-position: center center; /* Center the image */
+    background-color: #f4f4f4; /* Fallback color */
+}
+
+header {
+    background: rgba(70, 146, 151, 0.342); /* Semi-transparent background for readability */
+    color: #fff;
+    padding: 20px; /* Overall padding for header */
+    padding-left: 25px; /* Padding left for header text */
+    padding-right: 25px; /* Padding right for header text */
+    text-align: left; /* Align text to the left */
+    width: 100%; /* Ensure header spans full width */
+    position: relative;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+header h1 {
+    font-size: 1.3rem; /* Adjust font size as needed */
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1rem;
+    margin-top: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust height based on header/footer */
+    padding: 20px;
+}
+
+.converter {
+    background: rgba(255, 255, 255, 0); /*transparent background */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    margin-left: 0; /* Align to the left */
+    margin-right: auto; /* Center the remaining content */
+    position: absolute; /* Position relative to the screen */
+    left: 70px; /* Align the div to the left side of the screen */
+    top: 200px;
+}
+
+.converter form {
+    display: flex;
+    flex-direction: column;
+}
+
+.converter label {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: rgba(103, 85, 185, 0.938);
+    font: 2rem bold; 
+}
+
+.converter input[type="url"] {
+    padding: 10px;
+    border: 1px solid rgba(24, 44, 218, 0.2); /* Light border for better visibility */
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+    font-style: italic;
+    font: bold;
+    background-color: rgba(47, 15, 226, 0); /* Semi-transparent background */
+    color: #f4f5f8; /* Text color */
+    animation: float 3s ease-in-out infinite; /* Apply floating animation */
+    transition: animation 0.3s ease; /* Smooth transition for animation change */
+}
+
+/* Class to stop animation */
+.stop-animation {
+    animation: none !important; /* Override animation when class is added */
+}
+
+.converter input[type="url"]::placeholder {
+    color: #bbf0f1; /* White color for placeholder text */
+    font: bold;
+    font-style: normal;
+}
+
+.converter button {
+    background: linear-gradient(145deg, #101316, #0f3552); /* Gradient background for a 3D effect */
+    color: #fff;
+    border: 1px solid #0056b3; /* Darker border color */
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    font: italic small-caps bold 12px/30px Georgia, serif;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.2), 3px 3px 5px rgba(255, 255, 255, 0.4); /* 3D shadow effect */
+    transform: translateY(0); /* Slight downward shift */
+}
+
+.converter button:hover {
+    background: linear-gradient(145deg, #104852, #23f0e5); /* Inverted gradient on hover */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2), -1px -1px 3px rgba(255, 255, 255, 0.4); /* Adjusted shadow on hover */
+    transform: translateY(2px); /* Remove downward shift on hover */
+}
+
+#download-link {
+    margin-top: 20px;
+}
+#song_source{
+    color: #bbf0f1; /* White color for placeholder text */
+    font: bold;
+    font-style: normal;
+    margin-top: 20px;
+}
+/* Position the buttons on the right side of the header */
+.header-buttons {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Distance from the right edge */
+    transform: translateY(-50%); /* Center vertically */
+}
+
+.header-buttons button {
+    background: linear-gradient(145deg, #101316, #0f3552); /* Gradient background for a 3D effect */
+    color: #fff;
+    border: 1px solid #0056b3; /* Darker border color */
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-size: 0.875rem; /* Text size */
+    letter-spacing: 0.05em; /* Medium letter spacing */
+    font-weight: bold; /* Bold text */
+    line-height: 1.5; /* Space above and below text */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(255, 255, 255, 0.4); /* 3D shadow effect */
+    transform: translateX(0); /* Slight downward shift */
+    margin-left: 10px; /* Space between buttons */
+}
+
+/* Hover effect for buttons */
+.header-buttons button:hover {
+    background: linear-gradient(145deg,  #104852, #23f0e5); /* Inverted gradient on hover */
+    box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2), 1px 1px 3px rgba(255, 255, 255, 0.4); /* Adjusted shadow on hover */
+    transform: translateX(2px); /* Remove downward shift on hover */
+}
+
+
+#statusMessage {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #28a745;
+}
+
+footer {
+    background: rgba(51, 51, 51, 0.8); /* Semi-transparent background for readability */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YTmp3 and AI</title>
+    <link rel="stylesheet" href="/css/task1/style.css">
+</head>
+<body>
+    <header>
+        <h1>YTmp3 conversion and AI modification</h1>
+        <p>Sign up to use AI edited songs</p>
+        <div class="header-buttons">
+            <button class="login-btn">Login</button>
+            <button class="signup-btn">Sign Up</button>
+        </div>
+    </header>
+    <main>
+        <section class="converter">
+            <form id="converterForm" method="POST" action="/convert">
+                <input type="url" id="videoURL" name="videoID" placeholder="Enter YouTube URL" required>
+                <button type="submit">Convert to MP3</button>
+            </form>
+            <div class="container">
+                <% if(typeof success != "undefined" && success){ %>
+                    <div class="success">
+                        <a id="download-link" href="<%= song_link %>"><button id="downlaod-btn">DOWNLOAD</button></a>
+                        
+                        <h2 id="song_source"><%= song_source %></h2>
+                    </div>
+                <% }else if(typeof success != "undefined" && !success) {%>
+                    <div class="errors">
+                        <h2 id="song_source"><%= message %></h2>
+                    </div>
+                <% } %> 
+            </div>
+            <div id="statusMessage"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 YTmp3 and AI. All rights reserved.</p>
+    </footer>
+</body>
+<script src="/views/task1.js"></script>
+</html>
