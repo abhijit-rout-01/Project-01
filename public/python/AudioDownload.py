@@ -97,6 +97,8 @@ else:
     service = authentiate_google_drive()
     url = link
     file_path, file_name, response_content = download_file(url)
+    with open(file_path,"wb") as file:
+        file.write(response_content)
     upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
