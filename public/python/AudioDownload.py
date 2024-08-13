@@ -20,7 +20,7 @@ def change(title):
     return title_new
 
 def isPresent(title):
-    json_file_path = 'public\\css\\task1\\songs.json'
+    json_file_path = os.path.join(os.getcwd(),'public/css/task1/songs.json')
     file = open(json_file_path,'r')
 
     songs = json.load(file)
@@ -30,7 +30,7 @@ def isPresent(title):
         return False
 
 def saveToJson(title):
-    json_file_path = 'public\\css\\task1\\songs.json'
+    json_file_path = os.path.join(os.getcwd(),'public/css/task1/songs.json')
     with open(json_file_path, 'r') as file:
         songs = json.load(file)
     songs.append(title)
@@ -106,7 +106,7 @@ else:
     MelSpec.save(file_path,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
     os.remove(file_path)
-    
+
     print(title+'_'+videoID)
     # time.sleep(7)
     # import MelSpec

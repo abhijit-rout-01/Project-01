@@ -66,7 +66,7 @@ def save(file_path,title):
 #save("KALKI 2898 A.D - Shree Krishna (OST Kalki Theme)_ZFSUYviUY_M")
 def editJson(title,k):
     # Path to the JSON file
-    json_file_path = 'public\\css\\task2\\images.json'
+    json_file_path = os.path.join(os.getcwd(),'public/css/task2/images.json')
 
     for i in range(0,k):
         # New images to be added
