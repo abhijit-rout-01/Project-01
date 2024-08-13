@@ -75,61 +75,65 @@ server.post("/convert",async (req,res)=>{
         const fetchResponse = await fetchAPI.json();
 
         if(fetchResponse.status === "ok"){
-            //call python to download audio
-            const spawner = require('child_process').spawn;
-            const python_process = spawner('python',['public\\python\\AudioDownload.py',fetchResponse.link,fetchResponse.title,videoID]);
-            python_process.stdout.on('data', (data)=>{
-                if(data.toString()==="Song already taken try another one"){
-                    console.log(3_0);
-                    return res.render(__dirname+"/public/views/task1.ejs", {
-                        success : true, 
-                        song_title: fetchResponse.title, 
-                        song_link : fetchResponse.link, 
-                        song_source : "Song already taken, try another. Yet you can download it.",
-                    });}
-                else{
-                    // var date = new Date();
-                    // var curDate = null;
-                    // do { curDate = new Date(); }
-                    // while(curDate-date < 10000); 
-                    //console.log(fetchResponse.link);
+            //check if song already there
+            const file = path.join(__dirname,'public/css/task1/songs.json');
+            let jsonData="";
+            let song_source="";
+            jsonData = await r(file);
+            if(jsonData.includes(fetchResponse.title+'_'+videoID)){
+                console.log(jsonData);
+                song_source = "Song already taken, try another. Yet you can download it.";
+            }
+            else{
+                let title_new="";
+                const t = fetchResponse.title;
+                let i=0;
+                for(i=0;i<t.length;i++){
+                    if(t[i]!='|'){
+                        title_new=title_new+t[i];
+                    }
+                    else{
+                        title_new=title_new+'_';
+                    }
+                }
+                title_new=title_new+"_"+videoID;
+                    
+                console.log(4);
+                song_source = title_new;
+                //call python to download audio
+                const spawner = require('child_process').spawn;
+                const python_process = spawner('python',['public\\python\\AudioDownload.py',fetchResponse.link,fetchResponse.title,videoID]);
+                python_process.stdout.on('data', (data)=>{
                     console.log(3_1);
-                    let title_new="";
-                    const t = fetchResponse.title;
-                    let i=0;
-                    for(i=0;i<t.length;i++){
-                        if(t[i]!='|'){
-                            title_new=title_new+t[i];
+                });
+                
+                r1(song_source);
+            }
+            function r(file){
+                return new Promise((resolve,reject)=>{
+                    fs.readFile(file, 'utf8', (err,data)=>{
+                        if(err){
+                            console.error("Error reading file",err);
+                            reject("");
                         }
                         else{
-                            title_new=title_new+'_';
+                            resolve(JSON.stringify(data));
                         }
-                    }
-                    title_new=title_new+"_"+videoID;
-                    // var date = new Date();
-                    // var curDate = null;
-                    // do { curDate = new Date(); }
-                    // while(curDate-date < 10000); 
-                    // console.log(title_new);
-                    console.log(4);
-                    return res.render(__dirname+"/public/views/task1.ejs", {
-                        success : true, 
-                        song_title: fetchResponse.title, 
-                        song_link : fetchResponse.link, 
-                        song_source : title_new,
-                    });}
-                    
-            });
-            // const pass_data = "Hello";
-            // var title_new = "";
-            // const python_process = spawner('python',['python\\AudioDownload.py',fetchResponse.link,fetchResponse.title,videoID]);
-            // python_process.stdout.on('data', (data)=>{
-            //     console.log(data.toString());
-            // });
-            
+                    });
+                })
+            }
+            function r1(){
+                return res.render(__dirname+"/public/views/task1.ejs", {
+                    success : true, 
+                    song_title: fetchResponse.title, 
+                    song_link : fetchResponse.link, 
+                    song_source : song_source,
+                });
+            }     
         }
-        else
+        else{
             return res.render(__dirname+"/public/views/task1.ejs", {success : false, message : fetchResponse.msg});
+        }
     }
 });
 

@@ -47,8 +47,9 @@ def save(file_path,title):
 
         # Load the JSON data
         service_account_file = json.loads(json_credentials)
+        # service_account_file = "F:\Programs\Task01a\GOOGLE_DRIVE_JSON.json"
         scopes = ['https://www.googleapis.com/auth/drive.file']
-
+        
         service = authentiate_google_drive(service_account_file, scopes)
         
         local_file_path = os.path.join(os.getcwd(), title+str(i))

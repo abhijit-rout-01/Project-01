@@ -33,7 +33,7 @@ def saveToJson(title):
     json_file_path = 'public\\css\\task1\\songs.json'
     with open(json_file_path, 'r') as file:
         songs = json.load(file)
-    songs.extend(title)
+    songs.append(title)
     with open(json_file_path, 'w') as file:
         json.dump(songs, file, indent=4)
 
@@ -78,6 +78,7 @@ else:
 
     # Load the JSON data
     service_account_file = json.loads(json_credentials)
+    # service_account_file = "F:\Programs\Task01a\GOOGLE_DRIVE_JSON.json"
     scopes = ['https://www.googleapis.com/auth/drive.file']
 
     service = authentiate_google_drive()
