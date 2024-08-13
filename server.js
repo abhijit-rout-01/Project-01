@@ -80,6 +80,7 @@ server.post("/convert",async (req,res)=>{
             const python_process = spawner('python',['public\\python\\AudioDownload.py',fetchResponse.link,fetchResponse.title,videoID]);
             python_process.stdout.on('data', (data)=>{
                 if(data.toString()==="Song already taken try another one"){
+                    console.log(3_0);
                     return res.render(__dirname+"/public/views/task1.ejs", {
                         success : true, 
                         song_title: fetchResponse.title, 
@@ -92,6 +93,7 @@ server.post("/convert",async (req,res)=>{
                     // do { curDate = new Date(); }
                     // while(curDate-date < 10000); 
                     //console.log(fetchResponse.link);
+                    console.log(3_1);
                     let title_new="";
                     const t = fetchResponse.title;
                     let i=0;
@@ -109,7 +111,7 @@ server.post("/convert",async (req,res)=>{
                     // do { curDate = new Date(); }
                     // while(curDate-date < 10000); 
                     // console.log(title_new);
-                    
+                    console.log(4);
                     return res.render(__dirname+"/public/views/task1.ejs", {
                         success : true, 
                         song_title: fetchResponse.title, 

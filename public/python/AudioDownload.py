@@ -83,6 +83,7 @@ else:
     import MelSpec
     MelSpec.save(response_content,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
+    print(title+'_'+videoID)
     # time.sleep(7)
     # import MelSpec
     # MelSpec.save(title+'_'+videoID)
