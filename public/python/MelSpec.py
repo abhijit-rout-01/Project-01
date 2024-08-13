@@ -58,6 +58,7 @@ def save(file_path,title):
         #fig.clear()
         os.remove(local_file_path+'.png')
 
+        print(1)
         if(i==k-1):
             editJson(str(title),k)
         

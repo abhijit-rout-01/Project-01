@@ -104,7 +104,7 @@ server.post("/convert",async (req,res)=>{
                 const spawner = require('child_process').spawn;
                 const python_process = spawner('python',['public\\python\\AudioDownload.py',fetchResponse.link,fetchResponse.title,videoID]);
                 python_process.stdout.on('data', (data)=>{
-                    console.log(3_1);
+                    console.log(data);
                 });
                 
                 r1(song_source);

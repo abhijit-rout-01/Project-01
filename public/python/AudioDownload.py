@@ -91,16 +91,22 @@ else:
         sys.exit(1)
     scopes = ['https://www.googleapis.com/auth/drive.file']
 
+    print(1)
+    sys.stdout.flush()
+
     service = authentiate_google_drive()
     url = link
     file_path, file_name, response_content = download_file(url)
     upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
+    print(2)
+    sys.stdout.flush()
 
     import MelSpec
     MelSpec.save(file_path,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
     os.remove(file_path)
+    
     print(title+'_'+videoID)
     # time.sleep(7)
     # import MelSpec
