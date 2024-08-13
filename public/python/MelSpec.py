@@ -3,11 +3,16 @@
 import librosa
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 import json
+import requests
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 
-def save(title):
+def save(response_content,title):
 
-    source = "C:\\Users\\Victus\\Downloads\\" + title + ".mp3"
+    source = response_content
     #print(title)
     y, sr = librosa.load(source)
 
@@ -32,8 +37,17 @@ def save(title):
         img = librosa.display.specshow(S_db, x_axis='time', y_axis='log', ax=ax)
         ax.set_title('Spectogram', fontsize=20)
         #plt.show()
+        
+        service_account_file = json.loads(os.getenv("GOOGLE_DRIVE_JSON"))
+        scopes = ['https://www.googleapis.com/auth/drive.file']
 
-        fig.savefig('public\\images\\'+title+str(i)+'.jpeg')
+        service = authentiate_google_drive(service_account_file, scopes)
+        
+        local_file_path = os.path.join(os.getcwd(), title+i)
+        with open(local_file_path,"wb") as file:
+            file.write(fig)
+            #fig.savefig(file)
+        upload_to_google_drive(service, local_file_path, title+i, folder_id='1zD4Zh5yWHQyA4TgGSSDpdMf78FDu-jF1')
 
         if(i==k-1):
             editJson(str(title),k)
@@ -63,3 +77,15 @@ def editJson(title,k):
         # Step 3: Save the updated list back to the JSON file
         with open(json_file_path, 'w') as file:
             json.dump(images, file, indent=4)
+
+def authentiate_google_drive(service_account_file, scopes):
+    creds = Credentials.from_service_account_file(service_account_file, scopes=scopes)
+    service = build('drive', 'v3', credentials=creds)
+    return service
+
+def upload_to_google_drive(service, file_path, file_name, folder_id=None):
+    file_metadata = {'name' : file_name}
+    if folder_id:
+        file_metadata['parents'] = [folder_id]
+    media = MediaFileUpload(file_path, mimetype="application/octet-stream")
+    file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
