@@ -99,14 +99,16 @@ server.post("/convert",async (req,res)=>{
                 title_new=title_new+"_"+videoID;
                     
                 console.log(4);
-                song_source = title_new;
-                //call python to download audio
-                const spawner = require('child_process').spawn;
-                const python_process = spawner('python',[__dirname+'public/python/MelSpec2.py',fetchResponse.link,fetchResponse.title,videoID]);
-                python_process.stdout.on('data', (data)=>{
-                    console.log(data);
-                });
-                
+                try{song_source = title_new;
+                    //call python to download audio
+                    const spawner = require('child_process').spawn;
+                    const python_process = spawner('python',[__dirname+'public/python/MelSpec2.py',fetchResponse.link,fetchResponse.title,videoID]);
+                    python_process.stdout.on('data', (data)=>{
+                        console.log(data);
+                    });}
+                catch(err){
+                    console.log(err);
+                }
                 r1(song_source);
             }
             function r(file){
