@@ -70,15 +70,25 @@ else:
     #webbrowser.open_new_tab(link)                    #remember to remove .env folders from ur task01a directory as those things will be given to 
     #third party server via environment variables
     # Get the base64-encoded environment variable
-    base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')
+    # base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')
 
-    # Decode the base64 string
-    decoded_bytes = base64.b64decode(base64_encoded_credentials)
-    json_credentials = decoded_bytes.decode('utf-8')
+    # # Decode the base64 string
+    # decoded_bytes = base64.b64decode(base64_encoded_credentials)
+    # json_credentials = decoded_bytes.decode('utf-8')
 
-    # Load the JSON data
-    service_account_file = json.loads(json_credentials)
-    # service_account_file = "F:\Programs\Task01a\GOOGLE_DRIVE_JSON.json"
+    # # Load the JSON data
+    # service_account_file = json.loads(json_credentials)
+    # # service_account_file = "F:\Programs\Task01a\GOOGLE_DRIVE_JSON.json"
+    try:
+        base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')
+        if not base64_encoded_credentials:
+            raise ValueError("GOOGLE_DRIVE_JSON environment variable is not set.")
+        decoded_bytes = base64.b64decode(base64_encoded_credentials)
+        json_credentials = decoded_bytes.decode('utf-8')
+        service_account_file = json.loads(json_credentials)
+    except Exception as e:
+        print(f"Error processing Google Drive credentials: {e}")
+        sys.exit(1)
     scopes = ['https://www.googleapis.com/auth/drive.file']
 
     service = authentiate_google_drive()
