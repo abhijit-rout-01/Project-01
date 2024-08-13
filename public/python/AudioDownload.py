@@ -54,7 +54,7 @@ def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
     if folder_id:
         file_metadata['parents'] = [folder_id]
-    media = MediaFileUpload(file_path, mimetype="application/octet-stream")
+    media = MediaFileUpload(file_path, mimetype="audio/mpeg")
     file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
     
 data_back = "Yes"
@@ -97,7 +97,7 @@ else:
     service = authentiate_google_drive()
     url = link
     file_path, file_name, response_content = download_file(url)
-    upload_to_google_drive(service, file_path+'.mp3', file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
+    upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
     sys.stdout.flush()
