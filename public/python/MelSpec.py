@@ -89,7 +89,7 @@ def editJson(title,k):
             json.dump(images, file, indent=4)
 
 def authentiate_google_drive(service_account_file, scopes):
-    creds = Credentials.from_service_account_file(service_account_file, scopes=scopes)
+    creds = Credentials.from_service_account_info(service_account_file, scopes=scopes)
     service = build('drive', 'v3', credentials=creds)
     return service
 

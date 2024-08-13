@@ -38,7 +38,7 @@ def saveToJson(title):
         json.dump(songs, file, indent=4)
 
 def authentiate_google_drive():
-    creds = Credentials.from_service_account_file(service_account_file, scopes=scopes)
+    creds = Credentials.from_service_account_info(service_account_file, scopes=scopes)
     service = build('drive', 'v3', credentials=creds)
     return service
 
