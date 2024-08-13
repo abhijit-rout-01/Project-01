@@ -104,7 +104,7 @@ server.post("/convert",async (req,res)=>{
                     const spawner = require('child_process').spawn;
                     const python_process = spawner('python',[path.join(__dirname,'public/python/AudioDownload.py'),fetchResponse.link,fetchResponse.title,videoID]);
                     python_process.stdout.on('data', (data)=>{
-                        console.log(JSON.stringify(data[0]));
+                        console.log(data.toString());
                     });
                     python_process.stderr.on('data', (data) => {
                         console.error(`stderr: ${data}`);
