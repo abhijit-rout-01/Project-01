@@ -43,7 +43,11 @@ def authentiate_google_drive():
     return service
 
 def download_file(url):
+    c=10
     response = requests.get(url)
+    while(response.status_code!=404 or c>0):
+        response = requests.get(url)
+        c=c-1
     print(response.status_code)
     sys.stdout.flush()
     print(len(response.content))
