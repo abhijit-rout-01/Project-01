@@ -6,15 +6,16 @@ import matplotlib.pyplot as plt
 import os
 import json
 import requests
+import base64
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
-def save(response_content,title):
+def save(file_path,title):
 
-    source = response_content
+    #source = response_content
     #print(title)
-    y, sr = librosa.load(source)
+    y, sr = librosa.load(file_path)
 
     partLen = 10
     k = int(len(y)/(partLen*sr))
@@ -38,16 +39,23 @@ def save(response_content,title):
         ax.set_title('Spectogram', fontsize=20)
         #plt.show()
         
-        service_account_file = json.loads(os.getenv("GOOGLE_DRIVE_JSON"))
+        base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')
+
+        # Decode the base64 string
+        decoded_bytes = base64.b64decode(base64_encoded_credentials)
+        json_credentials = decoded_bytes.decode('utf-8')
+
+        # Load the JSON data
+        service_account_file = json.loads(json_credentials)
         scopes = ['https://www.googleapis.com/auth/drive.file']
 
         service = authentiate_google_drive(service_account_file, scopes)
         
-        local_file_path = os.path.join(os.getcwd(), title+i)
-        with open(local_file_path,"wb") as file:
-            file.write(fig)
-            #fig.savefig(file)
-        upload_to_google_drive(service, local_file_path, title+i, folder_id='1zD4Zh5yWHQyA4TgGSSDpdMf78FDu-jF1')
+        local_file_path = os.path.join(os.getcwd(), title+str(i))
+        fig.savefig(local_file_path)
+        upload_to_google_drive(service, local_file_path, title+str(i), folder_id='1zD4Zh5yWHQyA4TgGSSDpdMf78FDu-jF1')
+        #fig.clear()
+        os.remove(local_file_path+'.png')
 
         if(i==k-1):
             editJson(str(title),k)
@@ -87,5 +95,5 @@ def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
     if folder_id:
         file_metadata['parents'] = [folder_id]
-    media = MediaFileUpload(file_path, mimetype="application/octet-stream")
+    media = MediaFileUpload(file_path+'.png', mimetype="application/octet-stream")
     file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()

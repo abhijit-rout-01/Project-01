@@ -1,3 +1,4 @@
 .env
 node_modules
-test01-8bac5-217b9cb52a2e.json
+GOOGLE_DRIVE_JSON.json
+encoded_credentials.txt

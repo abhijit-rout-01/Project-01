@@ -1,6 +1,5 @@
 import sys
-import webbrowser
-import time
+import base64
 import json
 #
 import os
@@ -60,7 +59,7 @@ def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     
 data_back = "Yes"
 
-link = sys.argv[1] 
+link = sys.argv[1]
 title = sys.argv[2]
 title = change(title) 
 videoID = sys.argv[3]
@@ -70,19 +69,27 @@ if(isPresent(title+'_'+videoID)):
 else:
     #webbrowser.open_new_tab(link)                    #remember to remove .env folders from ur task01a directory as those things will be given to 
     #third party server via environment variables
-    service_account_file = json.loads(os.getenv("GOOGLE_DRIVE_JSON"))
+    # Get the base64-encoded environment variable
+    base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')
+
+    # Decode the base64 string
+    decoded_bytes = base64.b64decode(base64_encoded_credentials)
+    json_credentials = decoded_bytes.decode('utf-8')
+
+    # Load the JSON data
+    service_account_file = json.loads(json_credentials)
     scopes = ['https://www.googleapis.com/auth/drive.file']
 
     service = authentiate_google_drive()
     url = link
     file_path, file_name, response_content = download_file(url)
     upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
-    os.remove(file_path)
 
 
     import MelSpec
-    MelSpec.save(response_content,title+'_'+videoID)
+    MelSpec.save(file_path,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
+    os.remove(file_path)
     print(title+'_'+videoID)
     # time.sleep(7)
     # import MelSpec
