@@ -62,6 +62,7 @@ server.post("/convert",async (req,res)=>{
         return res.render(__dirname+"/public/views/task1.ejs",{success:false, message:"Please enter a valid url"});
     }
     else{
+        console.log(1);
         const fetchAPI = await fetch('https://youtube-mp36.p.rapidapi.com/dl?id='+videoID, {
             "method" : "GET",
             "headers" : {
@@ -69,6 +70,7 @@ server.post("/convert",async (req,res)=>{
                 "x-rapidapi-host" : process.env.API_HOST
             }
         });
+        console.log(2);
 
         const fetchResponse = await fetchAPI.json();
 
