@@ -44,6 +44,8 @@ def authentiate_google_drive():
 
 def download_file(url):
     response = requests.get(url)
+    print(response.status_code)
+    sys.stdout.flush()
     print(len(response.content))
     sys.stdout.flush()
     file_name = title+'_'+videoID
@@ -56,7 +58,7 @@ def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
     if folder_id:
         file_metadata['parents'] = [folder_id]
-    media = MediaFileUpload(file_path, mimetype="audio/mpeg")
+    media = MediaFileUpload(file_path, mimetype="audio/mpeg") #application/octet-stream
     file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
     
 data_back = "Yes"
