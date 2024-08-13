@@ -102,9 +102,9 @@ server.post("/convert",async (req,res)=>{
                 try{song_source = title_new;
                     //call python to download audio
                     const spawner = require('child_process').spawn;
-                    const python_process = spawner('python',[path.join(__dirname,'public/python/MelSpec2.py'),fetchResponse.link,fetchResponse.title,videoID]);
+                    const python_process = spawner('python',[path.join(__dirname,'public/python/AudioDownload.py'),fetchResponse.link,fetchResponse.title,videoID]);
                     python_process.stdout.on('data', (data)=>{
-                        console.log(data);
+                        console.log(3_1);
                     });
                     python_process.stderr.on('data', (data) => {
                         console.error(`stderr: ${data}`);
