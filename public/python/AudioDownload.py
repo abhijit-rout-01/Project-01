@@ -163,7 +163,7 @@ else:
     #             print(f"File: {item}")
     # except FileNotFoundError:
     #     print(f"The directory {directory_path} does not exist.")
-    # upload_to_google_drive(service, os.path.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
+    upload_to_google_drive(service, os.path.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
     sys.stdout.flush()
