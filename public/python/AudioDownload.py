@@ -1,6 +1,7 @@
 import sys
 import base64
 import json
+import urllib
 #
 import os
 import json
@@ -43,20 +44,10 @@ def authentiate_google_drive():
     return service
 
 def download_file(url):
-    c=10
-    response = requests.get(url)
-    while(response.status_code!=404 or c>0):
-        response = requests.get(url)
-        c=c-1
-    print(response.status_code)
-    sys.stdout.flush()
-    print(len(response.content))
-    sys.stdout.flush()
     file_name = title+'_'+videoID
     local_file_path = os.path.join(os.getcwd(), file_name)
-    with open(local_file_path,"wb") as file:
-        file.write(response.content)
-    return local_file_path, file_name, response.content
+    urllib.requests.urlretrive(url,local_file_path+'.mp3')
+    return local_file_path+'.mp3', file_name+'.mp3'
 
 def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
@@ -104,7 +95,6 @@ else:
 
     service = authentiate_google_drive()
     url = link
-    print(link)
     sys.stdout.flush()
     file_path, file_name, response_content = download_file(url)
     upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
