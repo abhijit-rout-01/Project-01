@@ -100,7 +100,8 @@ def download_file1(url):
         webbrowser.open(url)
     except Exception as e:
         print(e)
-        sys.stdout.flush() 
+        sys.stdout.flush()
+    print(os.path.join(os.getcwd(),title+'_'+videoID))
 
 def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
@@ -149,7 +150,8 @@ else:
     service = authentiate_google_drive()
     url = link
     sys.stdout.flush()
-    file_path, file_name = download_file1(url)
+    #file_path, file_name = 
+    download_file1(url)
     #upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
