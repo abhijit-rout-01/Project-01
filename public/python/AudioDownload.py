@@ -64,8 +64,9 @@ def download_file(url):
     proxies = response.text.split('\r\n')
 
     # Choose a proxy from the list
-    proxy = proxies[0]  # just an example, choose a valid proxy from the list
-
+    proxy = proxies[6]  # just an example, choose a valid proxy from the list
+    print(proxy)
+    sys.stdout.flush()
     # Use the proxy in your requests
     proxies_dict = {
         'http': f'http://{proxy}',
