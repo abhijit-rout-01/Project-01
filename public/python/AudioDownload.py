@@ -47,11 +47,16 @@ def download_file(url):
     file_name = title+'_'+videoID
     local_file_path = os.path.join(os.getcwd(), file_name)
     # Define your proxy server
-    proxy = {
-        "http": "http://162.253.68.97:4145",
-        "https": "https://166.0.235.108:40184",  # Same proxy for HTTPS, or use a different one
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'DNT': '1',  # Do Not Track request header
+    'Accept-Encoding': 'gzip, deflate, br'
     }
-    response = requests.get(url, proxies=proxy)
+    response = requests.get(url, headers=headers)
     c=10
     # while(not(response.status_code!=404 and c>0)):
     #     response = requests.get(url,proxies=proxy)
