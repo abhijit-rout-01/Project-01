@@ -56,7 +56,23 @@ def download_file(url):
     'DNT': '1',  # Do Not Track request header
     'Accept-Encoding': 'gzip, deflate, br'
     }
-    response = requests.get(url, headers=headers)
+    # Replace this URL with the ProxyScrape API endpoint for getting proxies
+    proxy_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&proxy_format=protocolipport&format=text"
+
+    # Fetch the list of proxies
+    response = requests.get(proxy_url)
+    proxies = response.text.split('\r\n')
+
+    # Choose a proxy from the list
+    proxy = proxies[0]  # just an example, choose a valid proxy from the list
+
+    # Use the proxy in your requests
+    proxies_dict = {
+        'http': f'http://{proxy}',
+        'https': f'http://{proxy}',
+    }
+
+    response = requests.get(url, headers=headers, proxies=proxies_dict)
     c=10
     # while(not(response.status_code!=404 and c>0)):
     #     response = requests.get(url,proxies=proxy)
