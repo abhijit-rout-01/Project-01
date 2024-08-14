@@ -46,7 +46,7 @@ def authentiate_google_drive():
 def download_file(url):
     file_name = title+'_'+videoID
     local_file_path = os.path.join(os.getcwd(), file_name)
-    urllib.requests.urlretrive(url,local_file_path+'.mp3')
+    urllib.request.urlretrive(url,local_file_path+'.mp3')
     return local_file_path+'.mp3', file_name+'.mp3'
 
 def upload_to_google_drive(service, file_path, file_name, folder_id=None):
@@ -96,7 +96,7 @@ else:
     service = authentiate_google_drive()
     url = link
     sys.stdout.flush()
-    file_path, file_name, response_content = download_file(url)
+    file_path, file_name = download_file(url)
     upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
