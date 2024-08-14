@@ -11,11 +11,11 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
-def save(file_path,title):
+def save(title):
 
     #source = response_content
     #print(title)
-    y, sr = librosa.load(file_path)
+    y, sr = librosa.load(os.join(os.getcwd(),title))
 
     partLen = 10
     k = int(len(y)/(partLen*sr))

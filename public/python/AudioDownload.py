@@ -152,15 +152,15 @@ else:
     sys.stdout.flush()
     #file_path, file_name = 
     download_file1(url)
-    #upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
+    upload_to_google_drive(service, os.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
     sys.stdout.flush()
 
-    # import MelSpec
-    # MelSpec.save(file_path,title+'_'+videoID)
-    # saveToJson(title+'_'+videoID)
-    # os.remove(file_path)
+    import MelSpec
+    MelSpec.save(title+'_'+videoID)
+    saveToJson(title+'_'+videoID)
+    os.remove(os.join(os.getcwd(),title+'_'+videoID))
 
     # print(title+'_'+videoID)
     # time.sleep(7)
