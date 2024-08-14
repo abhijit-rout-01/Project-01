@@ -46,7 +46,17 @@ def authentiate_google_drive():
 def download_file(url):
     file_name = title+'_'+videoID
     local_file_path = os.path.join(os.getcwd(), file_name)
-    urllib.request.urlretrieve(url,local_file_path+'.mp3')
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req) as response:
+            with open(local_file_path + '.mp3', 'wb') as file:
+                file.write(response.read())
+        print(f"File downloaded successfully to {local_file_path}.mp3")
+    except urllib.error.HTTPError as e:
+        print(f"HTTP Error: {e.code} - {e.reason}")
+    except Exception as e:
+        print(f"Error: {e}")
     return local_file_path+'.mp3', file_name+'.mp3'
 
 def upload_to_google_drive(service, file_path, file_name, folder_id=None):
