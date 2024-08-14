@@ -3,6 +3,7 @@ import base64
 import json
 import urllib
 #
+import webbrowser
 import os
 import json
 import requests
@@ -94,6 +95,13 @@ def download_file(url):
     #     print(f"Error: {e}")
     return local_file_path, file_name
 
+def download_file1(url):
+    try:
+        webbrowser.open(url)
+    except Exception as e:
+        print(e)
+        sys.stdout.flush() 
+
 def upload_to_google_drive(service, file_path, file_name, folder_id=None):
     file_metadata = {'name' : file_name}
     if folder_id:
@@ -141,8 +149,8 @@ else:
     service = authentiate_google_drive()
     url = link
     sys.stdout.flush()
-    file_path, file_name = download_file(url)
-    upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
+    file_path, file_name = download_file1(url)
+    #upload_to_google_drive(service, file_path, file_name, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
     sys.stdout.flush()
