@@ -152,6 +152,18 @@ else:
     sys.stdout.flush()
     #file_path, file_name = 
     download_file1(url)
+    directory_path = os.getcwd()
+
+# List all files and folders in the specified directory
+    try:
+        for item in os.listdir(directory_path):
+            item_path = os.path.join(directory_path, item)
+            if os.path.isdir(item_path):
+                print(f"Folder: {item}")
+            else:
+                print(f"File: {item}")
+    except FileNotFoundError:
+        print(f"The directory {directory_path} does not exist.")
     upload_to_google_drive(service, os.path.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
