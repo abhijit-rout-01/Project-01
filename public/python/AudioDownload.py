@@ -69,8 +69,8 @@ def download_file(url):
     sys.stdout.flush()
     # Use the proxy in your requests
     proxies_dict = {
-        'http': f'http://{proxy}',
-        'https': f'http://{proxy}',
+        'http': proxy,
+        'https': proxy,
     }
 
     response = requests.get(url, headers=headers, proxies=proxies_dict)
