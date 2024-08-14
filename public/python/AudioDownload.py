@@ -57,25 +57,25 @@ def download_file(url):
     'DNT': '1',  # Do Not Track request header
     'Accept-Encoding': 'gzip, deflate, br'
     }
-    # Replace this URL with the ProxyScrape API endpoint for getting proxies
-    proxy_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&proxy_format=protocolipport&format=text"
+    # ProxyMesh credentials and proxy server
+    proxy_url = "http://Ar520:green-100@proxy.proxy.mesh:port"
 
-    # Fetch the list of proxies
-    response = requests.get(proxy_url)
-    proxies = response.text.split('\r\n')
-
-    # Choose a proxy from the list
-    proxy = proxies[6]  # just an example, choose a valid proxy from the list
-    print(proxy)
-    sys.stdout.flush()
-    # Use the proxy in your requests
-    proxies_dict = {
-        'http': proxy,
-        'https': proxy,
+    # Configure the proxies
+    proxies = {
+        "http": proxy_url,
+        "https": proxy_url,
     }
 
-    response = requests.get(url, headers=headers, proxies=proxies_dict)
-    c=10
+    # Downloading the file via ProxyMesh
+    try:
+        response = requests.get(url, proxies=proxies, headers=headers)
+        response.raise_for_status()  # Check if the download was successful
+        with open(local_file_path, "wb") as file:
+            file.write(response.content)
+        print(f"File downloaded successfully and saved as {local_file_path}")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        sys.stdout.flush()
     # while(not(response.status_code!=404 and c>0)):
     #     response = requests.get(url,proxies=proxy)
     #     c=c-1
@@ -149,30 +149,29 @@ else:
 
     service = authentiate_google_drive()
     url = link
-    sys.stdout.flush()
-    #file_path, file_name = 
-    download_file1(url)
-    directory_path = os.getcwd()
+    file_path, file_name = download_file(url)
+    # download_file1(url)
+    # directory_path = os.getcwd()
 
 # List all files and folders in the specified directory
-    try:
-        for item in os.listdir(directory_path):
-            item_path = os.path.join(directory_path, item)
-            if os.path.isdir(item_path):
-                print(f"Folder: {item}")
-            else:
-                print(f"File: {item}")
-    except FileNotFoundError:
-        print(f"The directory {directory_path} does not exist.")
-    upload_to_google_drive(service, os.path.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
+    # try:
+    #     for item in os.listdir(directory_path):
+    #         item_path = os.path.join(directory_path, item)
+    #         if os.path.isdir(item_path):
+    #             print(f"Folder: {item}")
+    #         else:
+    #             print(f"File: {item}")
+    # except FileNotFoundError:
+    #     print(f"The directory {directory_path} does not exist.")
+    # upload_to_google_drive(service, os.path.join(os.getcwd(),title+'_'+videoID), title+'_'+videoID, folder_id='1Y_3XGo2z6miI-O9j_U9H0vEN_ea9uQ_k')
 
     print(2)
     sys.stdout.flush()
 
     import MelSpec
-    MelSpec.save(title+'_'+videoID)
+    MelSpec.save(file_path,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
-    os.remove(os.join(os.getcwd(),title+'_'+videoID))
+    os.remove(file_path)
 
     # print(title+'_'+videoID)
     # time.sleep(7)
