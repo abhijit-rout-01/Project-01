@@ -59,7 +59,7 @@ def download_file(url):
     'Accept-Encoding': 'gzip, deflate, br'
     }
     # ProxyMesh credentials and proxy server
-    proxy_url = os.environ['PROXY']
+    proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
 
     # Configure the proxies
     proxies = {
