@@ -17,7 +17,7 @@ def save(file_path,title):
     #print(title)
     y, sr = librosa.load(file_path)
 
-    partLen = 10
+    partLen = 5
     k = int(len(y)/(partLen*sr))
 
     c=0
@@ -36,7 +36,9 @@ def save(file_path,title):
 
         fig, ax = plt.subplots(figsize = (10,5))
         img = librosa.display.specshow(S_db, x_axis='time', y_axis='log', ax=ax)
-        ax.set_title('Spectogram', fontsize=20)
+        #ax.set_title('Spectogram', fontsize=20)
+        ax.axis('off')
+        plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
         #plt.show()
         
         base64_encoded_credentials = os.getenv('GOOGLE_DRIVE_JSON')

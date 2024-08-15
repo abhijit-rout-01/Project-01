@@ -3,6 +3,7 @@ import base64
 import json
 import urllib
 #
+import time
 import webbrowser
 import os
 import json
@@ -168,6 +169,7 @@ else:
     print(2)
     sys.stdout.flush()
 
+    time.sleep(2)
     import MelSpec
     MelSpec.save(file_path,title+'_'+videoID)
     saveToJson(title+'_'+videoID)
