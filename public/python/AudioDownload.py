@@ -63,7 +63,7 @@ def download_file(url):
     load_dotenv()
     proxy_api = "5ed4901bd2336965043214e9991c0442"
         #proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
-    proxy_api_url = f"https://api.scraperapi.com?api_key={proxy_api}&url={url}"
+    proxy_api_url = "https://api.scraperapi.com?api_key=5ed4901bd2336965043214e9991c0442&url="+url
     # Configure the proxies
     # proxies = {
     #     "http": proxy_url,
