@@ -61,9 +61,9 @@ def download_file(url):
     }
     # ProxyMesh credentials and proxy server
     load_dotenv()
-    proxy_api = "5ed4901bd2336965043214e9991c0442"
+    proxy_api = "Zj9CRMHwm2PA3tYUYIgszQ"
         #proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
-    proxy_api_url = "https://api.scraperapi.com?api_key=5ed4901bd2336965043214e9991c0442&url="+url
+    proxy_api_url = f'https://api.crawlbase.com/?token={API_KEY3}&url={url}'
     # Configure the proxies
     # proxies = {
     #     "http": proxy_url,
