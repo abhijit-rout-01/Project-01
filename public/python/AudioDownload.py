@@ -61,7 +61,7 @@ def download_file(url):
     }
     # ProxyMesh credentials and proxy server
     load_dotenv()
-    proxy_api = os.getenv('API_KEY2')
+    proxy_api = "5ed4901bd2336965043214e9991c0442"
         #proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
     proxy_api_url = f"https://api.scraperapi.com?api_key={proxy_api}&url={url}"
     # Configure the proxies
