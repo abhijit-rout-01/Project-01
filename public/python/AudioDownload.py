@@ -4,6 +4,7 @@ import json
 import urllib
 #
 import time
+import urllib.parse
 import webbrowser
 import os
 import json
@@ -62,8 +63,9 @@ def download_file(url):
     # ProxyMesh credentials and proxy server
     load_dotenv()
     proxy_api = os.getenv('API_KEY3')
+    e_url = urllib.parse.quote(url,safe='')
         #proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
-    proxy_api_url = f'https://api.crawlbase.com/?token={proxy_api}&url={url}'
+    proxy_api_url = f'https://api.crawlbase.com/?token={proxy_api}&url={e_url}'
     # Configure the proxies
     # proxies = {
     #     "http": proxy_url,
