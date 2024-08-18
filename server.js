@@ -81,8 +81,9 @@ server.post("/convert",async (req,res)=>{
             let song_source="";
             jsonData = await r(file);
             if(jsonData.includes(fetchResponse.title+'_'+videoID)){
-                console.log(jsonData);
+                //console.log(jsonData);
                 song_source = "Song already taken, try another. Yet you can download it.";
+                r1(song_source);
             }
             else{
                 let title_new="";
@@ -105,6 +106,10 @@ server.post("/convert",async (req,res)=>{
                     const python_process = spawner('python',[path.join(__dirname,'public/python/AudioDownload.py'),fetchResponse.link,fetchResponse.title,videoID]);
                     python_process.stdout.on('data', (data)=>{
                         console.log(data.toString());
+                        if(data==="Song already taken try another one"){
+                            song_source="Song already taken, try another. Yet you can download it.";
+                            r1(song_source);
+                        }
                     });
                     python_process.stderr.on('data', (data) => {
                         console.error(`stderr: ${data}`);

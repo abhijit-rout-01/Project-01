@@ -11,6 +11,7 @@ import requests
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
+from dotenv import load_dotenv
 
 def change(title):
     title_new=""
@@ -59,17 +60,19 @@ def download_file(url):
     'Accept-Encoding': 'gzip, deflate, br'
     }
     # ProxyMesh credentials and proxy server
-    proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
-
+    load_dotenv()
+    proxy_api = os.getenv('API_KEY2')
+        #proxy_url = "http://Ar520:green-100@sg.proxymesh.com:31280"
+    proxy_api_url = f"https://api.scraperapi.com?api_key={proxy_api}&url={url}"
     # Configure the proxies
-    proxies = {
-        "http": proxy_url,
-        "https": proxy_url,
-    }
+    # proxies = {
+    #     "http": proxy_url,
+    #     "https": proxy_url,
+    # }
 
     # Downloading the file via ProxyMesh
     try:
-        response = requests.get(url, proxies=proxies, headers=headers)
+        response = requests.get(proxy_api_url, headers=headers)
         response.raise_for_status()  # Check if the download was successful
         with open(local_file_path, "wb") as file:
             file.write(response.content)
